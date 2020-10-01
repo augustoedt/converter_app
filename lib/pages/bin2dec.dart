@@ -12,38 +12,29 @@ class Bin2Dec extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               StreamBuilder(
-                  initialData: true,
-                  stream:MyApp.manager.switchStream$,
-                  builder: (_, snapshot) {
-                    return Switch(
-                      value: snapshot.data,
-                      onChanged: (val){
-                        MyApp.manager.switchValue(val);
-                      },
-                    );
-                  }
-              ),
-              StreamBuilder(
                   stream: MyApp.manager.input$,
-                  builder: (_, snapshot) {
+                  builder: (_, AsyncSnapshot<String> snapshot) {
                     return ListTile(
                       title: TextField(
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w700),
-                        decoration:
-                        InputDecoration().copyWith(errorText: snapshot.error),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          errorText: snapshot.error
+                        ),
                         onChanged: (value) {
-                          MyApp.manager.fillInput(value);
+                          MyApp.manager.myInput(value);
                         },
                       ),
                     );
                   }),
+              Divider(),
               StreamBuilder(
                   initialData: "0",
-                  stream: MyApp.manager.convertedResult,
+                  stream: MyApp.manager.output$,
                   builder: (_, snapshot) {
                     TextStyle style =
                     TextStyle(fontSize: 50, fontWeight: FontWeight.w700);
@@ -55,7 +46,7 @@ class Bin2Dec extends StatelessWidget {
                     }
                     if (snapshot.hasError) {
                       return Text(
-                        "invalid binary",
+                        'invalid input',
                         style: style,
                       );
                     } else {

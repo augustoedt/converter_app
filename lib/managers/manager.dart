@@ -6,45 +6,38 @@ import 'validation.dart';
 
 
 class Manager with Validation{
-  var _input = BehaviorSubject<String>.seeded("");
+  BehaviorSubject _input = BehaviorSubject<String>.seeded("");
   Stream<String> get input$ => _input.stream.transform(validateInput);
-  void fillInput(String value) => _input.sink.add(value);
-
-  var _switch = BehaviorSubject<bool>.seeded(false);
-  Stream<bool> get switchStream$ => _switch.stream;
+  void myInput(String value) => _input.sink.add(value);
 
 
-
-  StreamController _controller = StreamController<String>();
-  Stream<String> get convertedResult => _controller.stream;
-
-
+  PublishSubject<String> _output = PublishSubject();
+  Stream<String> get output$ => _output.stream;
 
 
   Manager(){
-    input$.listen((binary) =>calculator(binary, _switch.stream.value)
+    input$.listen((binary) =>parseToDecimal(binary)
       ,onError: (error){
-        _controller.addError(error);
+          _output.addError(error);
       }
     );
   }
-  void switchValue(bool value){
-    _switch.add(value);
-  }
 
-  void calculator(String binary, bool lms){
-    if(lms==null) lms=false;
+  void parseToDecimal(String binary){
     int total = 0;
     for(int i = 0;i<binary.length;i++){
-      var value = binary[i];
-      int index = lms?i:binary.length-1-i;
-      if(value == '0'){
+      String value = binary[i];
+      int index = binary.length-1-i;
         total = total+0*pow(2,index);
-      }
       if(value == '1'){
         total = total+1*pow(2,index);
       }
     }
-    _controller.add(total.toString());
+    _output.add(total.toString());
+  }
+
+  void dispatch(){
+    _input.close();
+    _output.close();
   }
 }
