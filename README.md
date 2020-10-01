@@ -14,5 +14,4 @@ Simple App to practice rxDart package.
 *  StreamSubscriptions
 *  Regular expressions
 
-
 [Live Example](https://augustoedt123.github.io/binarytodecimal/#/)

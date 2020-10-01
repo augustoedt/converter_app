@@ -1,4 +1,4 @@
-import 'package:bin2dec/pages/bin2dec.dart';
+import 'package:bin2dec/pages/screens/bin2dec.dart';
 import 'package:flutter/material.dart';
 
 import 'managers/manager.dart';
