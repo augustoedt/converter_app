@@ -1,9 +1,18 @@
-# bin2dec
-
-Binary to Decimal App
+# Simple Binary to Decimal App
 
 ## Getting Started
 
-App to practice using rxDart
+Simple App to practice rxDart package.
+
+##### StreamControllers as State control
+
+*  BehaviorSubject
+*  PublishSubject
+
+##### Validators for stream output:
+*  StreamTransformer
+*  StreamSubscriptions
+*  Regular expressions
 
 
+[Live Example](https://augustoedt123.github.io/binarytodecimal/#/)
