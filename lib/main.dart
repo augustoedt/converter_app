@@ -1,7 +1,7 @@
 import 'package:bin2dec/pages/screens/bin2dec.dart';
 import 'package:flutter/material.dart';
-
 import 'managers/manager.dart';
+import 'pages/screens/converter_selection_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Bin2Dec()
+      home: ConvertSelectionScreen()
     );
   }
 }

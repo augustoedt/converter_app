@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:rxdart/rxdart.dart';
 import 'validation.dart';
 
-
-
 class Manager with Validation{
   BehaviorSubject _input = BehaviorSubject<String>.seeded("");
   Stream<String> get input$ => _input.stream.transform(validateInput);
