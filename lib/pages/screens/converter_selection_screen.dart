@@ -19,12 +19,13 @@ class ConvertSelectionScreen extends StatelessWidget {
     );
   }
 
-  Widget _itemBuilder(){
+  Widget _itemBuilder(BuildContext context, String title){
     return Container(
       width: 175, height: 175,
       padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
       decoration: _buildShadowAndRoundedCorners(),
+      child: Text(title, style: Theme.of(context).textTheme.headline5,),
     );
   }
 
@@ -34,11 +35,19 @@ class ConvertSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff23252D),
-      body: Column(
-        children: [
-          _itemBuilder()
-        ],
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Converter Menu', style: Theme.of(context).textTheme.headline6,),
+      ),
+      body: GridView.builder(
+        itemCount: _items.length,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 170,
+          childAspectRatio: 1
+        ),
+        itemBuilder: (_, index){
+          return _itemBuilder(context, _items[index]);
+        },
       ),
     );
   }

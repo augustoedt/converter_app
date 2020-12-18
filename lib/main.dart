@@ -1,4 +1,5 @@
 import 'package:bin2dec/pages/screens/bin2dec.dart';
+import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'managers/manager.dart';
 import 'pages/screens/converter_selection_screen.dart';
@@ -13,10 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: ThemeService.darkTheme,
       home: ConvertSelectionScreen()
     );
   }
