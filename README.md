@@ -1,5 +1,7 @@
 # Simple Converter App
 
+* Binary to Decimal
+
 ## Getting Started
 
 App to practice rxDart package.
