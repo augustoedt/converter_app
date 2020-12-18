@@ -1,8 +1,10 @@
-# Simple Binary to Decimal App
+# Simple Converter App
+
+* Binary to Decimal
 
 ## Getting Started
 
-Simple App to practice rxDart package.
+App to practice rxDart package.
 
 ##### StreamControllers as State control
 
