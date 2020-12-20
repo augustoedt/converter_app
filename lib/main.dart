@@ -1,10 +1,13 @@
-import 'package:bin2dec/pages/screens/bin2dec.dart';
+import 'package:bin2dec/Service/converter_service.dart';
+import 'package:bin2dec/managers/binary_manager.dart';
 import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'managers/manager.dart';
-import 'pages/screens/converter_selection_screen.dart';
+import 'pages/screens/convert_screen.dart';
 
 void main() {
+  registerViewModel();
   runApp(MyApp());
 }
 
@@ -15,8 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeService.darkTheme,
-      home: ConvertSelectionScreen()
+      home: ConverterScreen()
     );
   }
+}
+
+void registerViewModel(){
+  GetIt.I.registerSingleton<ConverterService>(ConverterService());
+  GetIt.I.registerSingleton<BinaryManager>(BinaryManager());
 }
 
