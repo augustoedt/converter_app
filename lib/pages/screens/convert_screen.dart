@@ -9,7 +9,7 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
   @override
   Widget build(BuildContext context) {
     registerHandler(
-            (BinaryManager m) => m.updateResultCmd.thrownExceptions,
+            (BinaryManager m) => m.updateOutputCmd.thrownExceptions,
             (context, error, _) async {
               if(error != null){
                 await showDialog(
@@ -28,11 +28,11 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
               }
             });
     //Creating states
-    final isRunning = watchX((BinaryManager x) => x.updateResultCmd.isExecuting);
-    final updateResult = watchX((BinaryManager x) => x.updateResultCmd.canExecute);
+    final isRunning = watchX((BinaryManager x) => x.updateOutputCmd.isExecuting);
+    final updateResult = watchX((BinaryManager x) => x.updateOutputCmd.canExecute);
     final switchConverter = watchX((BinaryManager x) => x.switchConverterCmd);
     //Values
-    final data = watchX((BinaryManager x) => x.updateResultCmd) ?? "";
+    final data = watchX((BinaryManager x) => x.updateOutputCmd) ?? "";
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +59,7 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
                         TextField(
                           maxLines: null,
                           style: Theme.of(context).textTheme.headline2,
-                          onChanged: get<BinaryManager>().textChangedCmd,
+                          onChanged: get<BinaryManager>().inputChangedCmd,
                         ),
                       ],
                     ),
