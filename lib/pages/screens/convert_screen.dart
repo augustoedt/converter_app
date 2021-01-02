@@ -1,5 +1,8 @@
 import 'package:bin2dec/managers/binary_manager.dart';
+import 'package:bin2dec/managers/theme_manager.dart';
+import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 class ConverterScreen extends StatelessWidget with GetItMixin{
@@ -33,11 +36,18 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
     final switchConverter = watchX((BinaryManager x) => x.switchConverterCmd);
     //Values
     final data = watchX((BinaryManager x) => x.updateOutputCmd) ?? "";
-
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.palette),
+            onPressed: (){
+              get<ThemeManager>().switchThemeCmd.execute();
+            },
+          )
+        ],
       ),
       body: Stack(
 

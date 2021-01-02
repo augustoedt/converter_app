@@ -1,7 +1,11 @@
+import 'package:bin2dec/managers/theme_manager.dart';
+import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:get_it_mixin/get_it_mixin.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatelessWidget  with GetItMixin{
 
   //url encoding: https://www.w3schools.com/tags/ref_urlencode.asp
   BoxDecoration _buildShadowAndRoundedCorners(){
@@ -51,11 +55,19 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Converter Menu', style: Theme.of(context).textTheme.headline6,),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.palette),
+            onPressed: (){
+            },
+          )
+        ],
       ),
       body: Center(
         heightFactor: 1,
