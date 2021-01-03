@@ -2,7 +2,6 @@ import 'package:bin2dec/managers/theme_manager.dart';
 import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 class MenuScreen extends StatelessWidget  with GetItMixin{

@@ -1,8 +1,13 @@
-import 'package:bin2dec/Service/converter_service.dart';
+
+
+// code reference  from Thomas Burkharts: https://github.com/escamoteur
+// https://github.com/escamoteur/RVMS-2020/blob/main/example/lib/home_page/_manager/weather_manager.dart
+
+
+import 'package:bin2dec/services/converter_service.dart';
 import 'package:flutter_command/flutter_command.dart';
 import 'package:get_it/get_it.dart';
 
-// code reference: https://github.com/escamoteur/RVMS-2020/blob/main/example/lib/home_page/_manager/weather_manager.dart
 class BinaryManager{
   Command<String, String> updateOutputCmd;
   Command<String, String> inputChangedCmd;
@@ -15,12 +20,12 @@ class BinaryManager{
         } // Converter logic
     ,"" // Initial value
     );
-    inputChangedCmd = Command.createSync(
-    (x) => x, // input logic filter
-    "" // initial value
+    inputChangedCmd = Command
+        .createSync((x) => x, // input logic filter
+        "" // initial value
     );
     inputChangedCmd.debounce(
-    Duration(milliseconds: 300))
+    Duration(milliseconds: 500))
         .listen((filterText, _) {
           updateOutputCmd.execute(filterText);
     });

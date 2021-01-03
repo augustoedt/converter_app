@@ -1,34 +1,36 @@
-import 'package:bin2dec/Service/converter_service.dart';
-import 'package:bin2dec/managers/binary_manager.dart';
-import 'package:bin2dec/managers/theme_manager.dart';
-import 'package:bin2dec/services/theme_service.dart';
+import 'package:bin2dec/ui/screens/convert_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:get_it_mixin/get_it_mixin.dart';
-import 'pages/screens/convert_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  registerViewModel();
+import 'managers/binary_manager.dart';
+import 'managers/theme_manager.dart';
+import 'services/converter_service.dart';
+import 'services/theme_service.dart';
+
+void main(){
+  // final getIt = GetIt.instance;
+  // final prefs = await SharedPreferences.getInstance();
+  GetIt.I.registerSingleton<ConverterService>(ConverterService());
+  GetIt.I.registerSingleton<BinaryManager>(BinaryManager());
+  // getIt.registerSingleton<ThemeService>(ThemeService(prefs));
+  // getIt.registerSingleton<ThemeManager>(ThemeManager());
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget with GetItMixin {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeCommand = watchX((ThemeManager x) => x.updateThemeCmd);
-
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: themeCommand,
-      home: ConverterScreen()
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeService.themeMap[SelectedTheme.dark],
+        home: ConverterScreen()
     );
   }
 }
 
-void registerViewModel(){
-  GetIt.I.registerSingleton<ConverterService>(ConverterService());
-  GetIt.I.registerSingleton<ThemeService>(ThemeService());
-  GetIt.I.registerSingleton<ThemeManager>(ThemeManager());
-  GetIt.I.registerSingleton<BinaryManager>(BinaryManager());
+void registerViewModel(SharedPreferences prefs){
+
 }
 

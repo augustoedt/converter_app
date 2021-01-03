@@ -1,23 +1,28 @@
+
+import 'dart:async';
+
 import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_command/flutter_command.dart';
 import 'package:get_it/get_it.dart';
 
 class ThemeManager{
-  Command<void, ThemeData> updateThemeCmd;
-  Command<void, void> switchThemeCmd;
+  ThemeData theme;
+  final _themeController = StreamController<ThemeData>();
+
+  Stream<ThemeData> get themeStream => _themeController.stream;
 
   ThemeManager(){
-    updateThemeCmd = Command.createAsyncNoParam(
-        (){
-          return GetIt.I<ThemeService>().getTheme();},
-        ThemeService.themeMap[CurrentTheme.light]
-    );
-
-    switchThemeCmd = Command.createAsyncNoParamNoResult(() async {
-      await GetIt.I<ThemeService>().switchTheme();
-      updateThemeCmd.execute();
-    });
+    theme = GetIt.I.get<ThemeService>().getTheme();
   }
 
+  void changeTheme() async {
+    theme = GetIt.I.get()<ThemeService>().getTheme();
+    _themeController.sink.add(theme);
+  }
+
+
+
+  dispose(){
+    _themeController.close();
+  }
 }

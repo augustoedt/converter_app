@@ -1,8 +1,6 @@
 import 'package:bin2dec/managers/binary_manager.dart';
 import 'package:bin2dec/managers/theme_manager.dart';
-import 'package:bin2dec/services/theme_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 class ConverterScreen extends StatelessWidget with GetItMixin{
@@ -13,29 +11,17 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
   Widget build(BuildContext context) {
     registerHandler(
             (BinaryManager m) => m.updateOutputCmd.thrownExceptions,
-            (context, error, _) async {
+            (__, error, _) async {
+              final snackBar = SnackBar(content: Text(error.toString()), duration: Duration(milliseconds: 500),);
               if(error != null){
-                await showDialog(
-                  context: context,
-                  builder: (context)=>AlertDialog(
-                    actions: [
-                      TextButton(
-                        child: Text('Close'),
-                        onPressed: ()=>Navigator.of(context).pop(),
-                      )
-                    ],
-                    title: const Text('Error'),
-                    content: Text(error.toString()),
-                  ),
-                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             });
     //Creating states
     final isRunning = watchX((BinaryManager x) => x.updateOutputCmd.isExecuting);
-    final updateResult = watchX((BinaryManager x) => x.updateOutputCmd.canExecute);
-    final switchConverter = watchX((BinaryManager x) => x.switchConverterCmd);
     //Values
     final data = watchX((BinaryManager x) => x.updateOutputCmd) ?? "";
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -44,7 +30,7 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
           IconButton(
             icon: Icon(Icons.palette),
             onPressed: (){
-              get<ThemeManager>().switchThemeCmd.execute();
+              get<ThemeManager>().changeTheme();
             },
           )
         ],

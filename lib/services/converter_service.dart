@@ -2,6 +2,9 @@ import 'dart:math';
 
 class ConverterService{
   Future<String> binaryService(String input, bool inverted) async{
+    if(input==null){
+      input = "";
+    }
     if(input.contains(RegExp(r'[^01]'))){
       throw Exception("Input must be 0 or 1");
     }
