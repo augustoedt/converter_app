@@ -44,7 +44,6 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
               child: Column(
                 children: [
                   Container(
-                    color: Color(0xFF26282F),
                     width: 400,
                     padding: const EdgeInsets.all(8),
                     margin: EdgeInsets.symmetric(horizontal: 12),
