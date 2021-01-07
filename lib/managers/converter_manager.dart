@@ -8,28 +8,32 @@ import 'package:bin2dec/services/converter_service.dart';
 import 'package:flutter_command/flutter_command.dart';
 import 'package:get_it/get_it.dart';
 
-class BinaryManager{
+class ConverterManager<T>{
+
   Command<String, String> updateOutputCmd;
   Command<String, String> inputChangedCmd;
   Command<bool, bool> switchConverterCmd;
-  BinaryManager(){
+  ConverterManager(){
     switchConverterCmd  = Command.createSync<bool,bool>((x) => x, false);
     updateOutputCmd = Command.createAsync<String, String>(
-        (x) async{
-          return GetIt.I<ConverterService>().converter(x, false);
+            (x) async{
+              return (GetIt.I<T>() as ConverterService).converter(x, false);
         } // Converter logic
-    ,"" // Initial value
+        ,"" // Initial value
     );
     inputChangedCmd = Command
         .createSync((x) => x, // input logic filter
         "" // initial value
     );
     inputChangedCmd.debounce(
-    Duration(milliseconds: 500))
+        Duration(milliseconds: 500))
         .listen((filterText, _) {
-          updateOutputCmd.execute(filterText);
+      updateOutputCmd.execute(filterText);
     });
     updateOutputCmd.thrownExceptions.listen((exception,_)=>print(exception.toString()));
     updateOutputCmd.execute();
-    }
+  }
 }
+
+
+

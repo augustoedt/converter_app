@@ -14,7 +14,7 @@ class UrlManager{
     switchConverterCmd  = Command.createSync<bool,bool>((x) => x, false);
     updateOutputCmd = Command.createAsync<String, String>(
             (x) async{
-          return GetIt.I<ConverterService>().urlDecEncService(x, false);
+          return GetIt.I<ConverterService>().converter(x, false);
         } // Converter logic
         ,"" // Initial value
     );

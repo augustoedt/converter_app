@@ -1,16 +1,16 @@
-import 'package:bin2dec/managers/binary_manager.dart';
+import 'package:bin2dec/managers/converter_manager.dart';
 import 'package:bin2dec/managers/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
-class ConverterScreen extends StatelessWidget with GetItMixin{
+class ConverterScreen<T> extends StatelessWidget with GetItMixin{
   final String title = "Converter";
 
 
   @override
   Widget build(BuildContext context) {
     registerHandler(
-            (BinaryManager m) => m.updateOutputCmd.thrownExceptions,
+            (ConverterManager<T> m) => m.updateOutputCmd.thrownExceptions,
             (__, error, _) async {
               final snackBar = SnackBar(content: Text(error.toString()), duration: Duration(milliseconds: 500),);
               if(error != null){
@@ -18,9 +18,9 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
               }
             });
     //Creating states
-    final isRunning = watchX((BinaryManager x) => x.updateOutputCmd.isExecuting);
+    final isRunning = watchX((ConverterManager<T> x) => x.updateOutputCmd.isExecuting);
     //Values
-    final data = watchX((BinaryManager x) => x.updateOutputCmd) ?? "";
+    final data = watchX((ConverterManager<T> x) => x.updateOutputCmd) ?? "";
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +54,7 @@ class ConverterScreen extends StatelessWidget with GetItMixin{
                         TextField(
                           maxLines: null,
                           style: Theme.of(context).textTheme.headline2,
-                          onChanged: get<BinaryManager>().inputChangedCmd,
+                          onChanged: get<ConverterManager<T>>().inputChangedCmd,
                         ),
                       ],
                     ),
