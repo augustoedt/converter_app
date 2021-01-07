@@ -1,5 +1,6 @@
-import 'package:bin2dec/managers/theme_manager.dart';
-import 'package:bin2dec/services/theme_service.dart';
+import 'package:bin2dec/services/binary_converter_service.dart';
+import 'package:bin2dec/services/url_converter_service.dart';
+import 'package:bin2dec/ui/screens/convert_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
@@ -21,31 +22,38 @@ class MenuScreen extends StatelessWidget  with GetItMixin{
     );
   }
 
-  Widget _itemBuilder(BuildContext context, MenuItemModel item){
-
-    return Container(
-      width: 175, height: 160,
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      decoration: _buildShadowAndRoundedCorners(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Flexible(flex: 3, child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(item.image, fit: BoxFit.cover,),
-          )),
-          Flexible(flex: 2, child: Padding(
-            padding: const EdgeInsets.only(top: 13,left: 10, right: 10),
-            child: Text(
-              item.title,
-              textAlign: TextAlign.center,
-              softWrap: true,
-              maxLines: null,
-              style: Theme.of(context).textTheme.subtitle1,
-            )
-          )),
-        ],
+  Widget _itemBuilder<T>(BuildContext context, MenuItemModel item){
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context)=>ConverterScreen<T>())
+        );
+      },
+      child: Container(
+        width: 175, height: 160,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        decoration: _buildShadowAndRoundedCorners(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(flex: 3, child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(item.image, fit: BoxFit.cover,),
+            )),
+            Flexible(flex: 2, child: Padding(
+              padding: const EdgeInsets.only(top: 13,left: 10, right: 10),
+              child: Text(
+                item.title,
+                textAlign: TextAlign.center,
+                softWrap: true,
+                maxLines: null,
+                style: Theme.of(context).textTheme.subtitle1,
+              )
+            )),
+          ],
+        ),
       ),
     );
   }
@@ -71,7 +79,14 @@ class MenuScreen extends StatelessWidget  with GetItMixin{
       body: Center(
         heightFactor: 1,
         child: Wrap(
-          children: menuItems.map((e) => _itemBuilder(context, e)).toList(),
+            children: [
+              _itemBuilder<BinaryConverterService>(
+                  context,
+                  MenuItemModel(image: 'assets/bintodec.png',title: 'Binary\nDecimal')),
+              _itemBuilder<UrlConverterService>(
+                  context,
+                  MenuItemModel(image: 'assets/urlencoder.png',title: 'Url-Encoder\nDecoder'))
+            ]
         ),
       ),
     );

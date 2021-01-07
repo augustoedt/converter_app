@@ -2,6 +2,7 @@ import 'package:bin2dec/managers/converter_manager.dart';
 import 'package:bin2dec/services/binary_converter_service.dart';
 import 'package:bin2dec/services/url_converter_service.dart';
 import 'package:bin2dec/ui/screens/convert_screen.dart';
+import 'package:bin2dec/ui/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeService.themeMap[SelectedTheme.dark],
-        home: ConverterScreen<UrlConverterService>()
+        home: MenuScreen()
     );
   }
 }
