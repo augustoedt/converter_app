@@ -50,7 +50,7 @@ class ConverterScreen<T> extends StatelessWidget with GetItMixin{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Binary'),
+                        Text('Input'),
                         TextField(
                           maxLines: null,
                           style: Theme.of(context).textTheme.headline2,
