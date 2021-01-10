@@ -6,4 +6,4 @@
 
 App to practice structural patterns
 
-[Live Example](https://augustoedt123.github.io/binarytodecimal/#/)
+[Live Example](https://augustoedt123.github.io/converter_app/)

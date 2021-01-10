@@ -6,7 +6,6 @@ import 'package:get_it_mixin/get_it_mixin.dart';
 class ConverterScreen<T> extends StatelessWidget with GetItMixin{
   final String title = "Converter";
 
-
   @override
   Widget build(BuildContext context) {
     registerHandler(
